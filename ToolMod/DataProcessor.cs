@@ -100,6 +100,7 @@ namespace ToolMod
                 if (v.LockBulletType is not null)
                 {
                     LockBulletType = (int)v.LockBulletType;
+                    MelonLogger.Msg($"Lock Bullet Type：{LockBulletType}");
                 }
                 return;
             }

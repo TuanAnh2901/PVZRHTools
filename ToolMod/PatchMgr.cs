@@ -175,24 +175,46 @@ namespace ToolMod
         }
     }
 
-    [HarmonyPatch(typeof(CreateBullet), "SetBullet", [typeof(float), typeof(float), typeof(int), typeof(BulletType), typeof(int), typeof(bool)])]
-    [HarmonyPatch(typeof(CreateBullet), "SetBullet", [typeof(float), typeof(float), typeof(int), typeof(BulletType), typeof(BulletMoveWay), typeof(bool)])]
-    public static class CreateBulletPatch
+    [HarmonyPatch(typeof(CreateBullet))]
+    [HarmonyPatch("SetBullet")]
+    [HarmonyPatch(new System.Type[] { typeof(float), typeof(float), typeof(int), typeof(BulletType), typeof(int), typeof(bool) })]
+    public static class SetBullet_IntMovingWay_Patch
     {
         public static void Prefix(ref BulletType theBulletType)
         {
             if (LockBulletType == -1)
             {
-                theBulletType = Enum.GetValues<BulletType>()[UnityEngine.Random.Range(0, Enum.GetValues<BulletType>().Length)];
+                var values = (BulletType[])System.Enum.GetValues(typeof(BulletType));
+                theBulletType = values[UnityEngine.Random.Range(0, values.Length)];
             }
-            if (LockBulletType >= 0)
+            else if (LockBulletType >= 0)
+            {
+                theBulletType = (BulletType)LockBulletType;
+            }
+            // Nếu -2 hoặc < -1 thì không thay đổi
+        }
+    }
+
+    [HarmonyPatch(typeof(CreateBullet))]
+    [HarmonyPatch("SetBullet")]
+    [HarmonyPatch(new System.Type[] { typeof(float), typeof(float), typeof(int), typeof(BulletType), typeof(BulletMoveWay), typeof(bool) })]
+    public static class SetBullet_BulletMoveWay_Patch
+    {
+        public static void Prefix(ref BulletType theBulletType)
+        {
+            if (LockBulletType == -1)
+            {
+                var values = (BulletType[])System.Enum.GetValues(typeof(BulletType));
+                theBulletType = values[UnityEngine.Random.Range(0, values.Length)];
+            }
+            else if (LockBulletType >= 0)
             {
                 theBulletType = (BulletType)LockBulletType;
             }
         }
     }
 
-    [HarmonyPatch(typeof(CreatePlant), "SetPlant")]
+        [HarmonyPatch(typeof(CreatePlant), "SetPlant")]
     public static class CreatePlantPatchC
     {
         public static void Prefix(ref bool isFreeSet) => isFreeSet = FreePlanting || isFreeSet;

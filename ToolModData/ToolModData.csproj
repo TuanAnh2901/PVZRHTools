@@ -5,12 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
+	  <GamePath>D:\PvZ Fusion\Game Files</GamePath>
   </PropertyGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;D:\Beta\pvz\rhex\UserLibs&quot;" />
-		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;D:\Beta\pvz\rhex\PVZRHTools&quot;" />
-		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;D:\Beta\pvz\rhbep\PVZRHTools&quot;" />
-		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;D:\Beta\pvz\rhbep\BepInEx\plugins&quot;" />
+		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(GamePath)\UserLibs&quot;" />
+		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(GamePath)\PVZRHTools&quot;" />
 	</Target>
 
 
