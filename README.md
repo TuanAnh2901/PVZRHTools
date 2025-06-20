@@ -1,4 +1,4 @@
-# 已弃坑。
+# Infinite75 discontinued the repo。This is a fork of it and maybe continue to update (Maybe)
 
 # PVZRHTools
 植物大战僵尸融合版修改器 by [@Infinite75](https://space.bilibili.com/672619350)    
